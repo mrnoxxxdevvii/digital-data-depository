@@ -14,6 +14,7 @@ Security fixes are provided for the latest release on the `main` branch. Older b
 ## Reporting a Vulnerability
 
 Do not open a public issue, discussion or pull request containing vulnerability details, exploit code or vault data.
+New reports are acknowledged within 14 days.
 
 **Preferred method:** use GitHub private vulnerability reporting, when it is enabled for this repository:
 
