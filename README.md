@@ -2,8 +2,9 @@
 
 # Digital Data Depository
 
-DDD is a desktop application that keeps files inside one encrypted vault file. You choose the files, you choose the password, and the vault stays on your machine. There is no account, no server and no vault network access.
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/16328/badge)](https://www.bestpractices.dev/projects/16328)
 
+DDD is a desktop application that keeps files inside one encrypted vault file. You choose the files, you choose the password, and the vault stays on your machine. There is no account, no server and no vault network access.
 The application is built with Tauri 2: a Rust backend for the vault engine and a plain HTML, CSS and JavaScript interface rendered by the system webview. Nothing is bundled through npm and there is no frontend build step.
 
 ![Vault view with sample entries](docs/screenshots/vault.png)
