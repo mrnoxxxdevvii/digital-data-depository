@@ -31,9 +31,17 @@ The screenshots use a demo vault with fictional file names and contents.
 
 ## Getting started
 
-**Prebuilt executable (Windows)**
+### Quick Start for Beginners
 
-Run `DDD.exe` from the project folder. WebView2 is required; it ships with Windows 10 and 11 by default.
+If you only want to use DDD and do not plan to build it from source:
+
+1. Open the repository page on GitHub.
+2. Click `DDD.exe` in the file list, then use **Download raw file**.
+3. Double-click the downloaded `DDD.exe` to launch DDD. Windows 10 and 11 include WebView2, which the interface needs; if it is missing, install the Microsoft Edge WebView2 Runtime.
+4. Create a vault, choose where to save it, and set a password with at least 12 characters. The password is not stored anywhere and cannot be recovered.
+5. Add your files, then use **Lock** when you are done. DDD also locks itself after the idle period set in Settings.
+
+**Security notice:** Download DDD only from this repository. Do not run modified or unofficial copies. The executable is not code-signed, so Windows SmartScreen may show a warning; continue only if the file came from this repository.
 
 **From source**
 
