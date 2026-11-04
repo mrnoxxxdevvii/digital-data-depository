@@ -1,0 +1,25 @@
+# Build output
+src-tauri/target/
+src-tauri/gen/
+release/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local tooling
+node_modules/
+*.log
+
+# Vault data
+*.ddd
+
+# Temporary files
+*.tmp
+*.dddtmp
