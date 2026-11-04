@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Digital Data Depository",
+  "version": "1.0.0",
+  "identifier": "com.mrnoxxx.ddd",
+  "build": {
+    "frontendDist": "../ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "Digital Data Depository",
+        "width": 1320,
+        "height": 860,
+        "minWidth": 1040,
+        "minHeight": 700,
+        "center": true,
+        "resizable": true,
+        "theme": "Dark",
+        "backgroundColor": "#0a0a0b"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src ipc: http://ipc.localhost; object-src 'none'; base-uri 'none'; form-action 'none'"
+    }
+  },
+  "bundle": {
+    "active": false,
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ]
+  }
+}

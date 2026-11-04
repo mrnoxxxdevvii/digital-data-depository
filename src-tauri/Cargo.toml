@@ -1,0 +1,36 @@
+[package]
+name = "digital-data-depository"
+version = "1.0.0"
+description = "Local encrypted file depository"
+edition = "2021"
+license = "MIT"
+authors = ["Mr. Nox"]
+
+[lib]
+name = "ddd"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ddd"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["custom-protocol"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+argon2 = "0.5"
+aes-gcm = "0.10"
+rand = "0.8"
+sha2 = "0.10"
+zeroize = { version = "1", features = ["derive"] }
+uuid = { version = "1", features = ["v4"] }
+rfd = "0.15"
+hex = "0.4"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

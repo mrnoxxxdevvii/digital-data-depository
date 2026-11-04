@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Data Depository</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section id="welcome" class="welcome">
+    <div class="welcome-frame">
+      <div class="welcome-top">
+        <span class="welcome-kicker">LOCAL ENCRYPTED CONTAINER</span>
+        <span class="welcome-version">v1.0.0</span>
+      </div>
+      <img class="welcome-logo" src="assets/logo-full.png" alt="Digital Data Depository">
+      <p class="welcome-copy">One file on this machine. Contents sealed with AES-256-GCM, password stretched with Argon2id, no network path for vault data.</p>
+      <div class="welcome-actions">
+        <button id="action-open" class="btn btn-primary" type="button">Open vault</button>
+        <button id="action-create" class="btn" type="button">Create vault</button>
+      </div>
+      <dl class="spec">
+        <div class="spec-row"><dt>FORMAT</dt><dd>DDDVAULT v2 / single file</dd></div>
+        <div class="spec-row"><dt>CONTENT</dt><dd>AES-256-GCM / random 96-bit nonce</dd></div>
+        <div class="spec-row"><dt>KEY WRAP</dt><dd>AES-256-GCM / random vault key</dd></div>
+        <div class="spec-row"><dt>PASSWORD</dt><dd>Argon2id / 256 MiB / 4 passes / 1 lane</dd></div>
+        <div class="spec-row"><dt>INDEX</dt><dd>encrypted / authenticated / SHA-256</dd></div>
+        <div class="spec-row"><dt>HEADER</dt><dd>HMAC-SHA-256 / authenticated</dd></div>
+        <div class="spec-row"><dt>NETWORK</dt><dd>none for vault data</dd></div>
+      </dl>
+      <div class="welcome-foot">
+        <span>MIN PASSWORD 12 CHARACTERS</span>
+        <span>UTC ONLY</span>
+        <button class="link" type="button" data-author-link>BUILT BY MR. NOX</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="vault-view" class="app" hidden>
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-mark" src="assets/logo-mark.png" alt="">
+        <span class="brand-name">DIGITAL DATA DEPOSITORY</span>
+        <span class="brand-slash">/</span>
+        <span id="vault-name" class="vault-file">vault.ddd</span>
+      </div>
+      <div class="topbar-actions">
+        <input id="search-input" class="search" type="search" placeholder="search files" autocomplete="off" spellcheck="false" aria-label="Search files">
+        <button id="action-add" class="btn btn-primary" type="button">Add files</button>
+        <button id="action-lock" class="btn" type="button">Lock</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="side-block">
+          <span class="side-label">FILTER</span>
+          <nav id="filters" class="filters" aria-label="File categories">
+            <button class="filter is-active" data-filter="all" type="button">All files<span class="count" data-count="all">0</span></button>
+            <button class="filter" data-filter="image" type="button">Images<span class="count" data-count="image">0</span></button>
+            <button class="filter" data-filter="document" type="button">Documents<span class="count" data-count="document">0</span></button>
+            <button class="filter" data-filter="other" type="button">Other<span class="count" data-count="other">0</span></button>
+          </nav>
+        </div>
+
+        <div class="side-block side-stats">
+          <span class="side-label">VAULT</span>
+          <span id="stat-size" class="stat-size">0 B</span>
+          <span id="stat-count" class="stat-sub">0 files</span>
+          <span class="stat-cipher">AES-256-GCM</span>
+        </div>
+
+        <div class="side-foot">
+          <button id="action-settings" class="link" type="button">SETTINGS</button>
+          <span id="lock-timer" class="lock-timer">AUTO-LOCK 10:00</span>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="main-head">
+          <div class="main-title">
+            <h1 id="view-title">All files</h1>
+            <span id="view-count" class="count-label">0 files</span>
+          </div>
+          <label class="sort-wrap">
+            <span>SORT</span>
+            <select id="sort-select" class="select" aria-label="Sort files">
+              <option value="newest">Newest</option>
+              <option value="name">Name</option>
+              <option value="size">Size</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="table">
+          <div class="table-head">
+            <span class="col-index">#</span>
+            <span>NAME</span>
+            <span>SIZE</span>
+            <span>ADDED (UTC)</span>
+            <span></span>
+          </div>
+          <div id="entry-list" class="rows"></div>
+          <div id="empty-state" class="empty" hidden>
+            <span class="empty-label">NO ENTRIES</span>
+            <p id="empty-title">This depository is empty.</p>
+            <p id="empty-text" class="muted">Add files to seal them into this vault.</p>
+            <button id="empty-add" class="btn" type="button">Add files</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <footer class="statusbar">
+    <span class="status-item"><span id="status-dot" class="status-dot"></span><span id="status-state">NO VAULT OPEN</span></span>
+    <span class="status-sep">/</span>
+    <span class="status-item">UTC <span id="utc-clock">--:--:--</span></span>
+    <span class="status-spacer"></span>
+    <span class="status-item status-hide">AES-256-GCM</span>
+    <span class="status-sep status-hide">/</span>
+    <span class="status-item status-hide">ARGON2ID</span>
+    <span class="status-sep">/</span>
+    <button class="link status-author" type="button" data-author-link>BUILT BY MR. NOX</button>
+  </footer>
+
+  <div id="modal-root" class="modal-root" hidden>
+    <div class="modal-backdrop" data-close="1"></div>
+    <div id="modal-panel" class="modal" role="dialog" aria-modal="true"></div>
+  </div>
+  <div id="toast-root" class="toasts" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
